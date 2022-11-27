@@ -1,6 +1,32 @@
+const mongoose = require("mongoose");
 const express = require("express");
 // app k andr express ke sare functions and properties aa chuke hai bcz const app=express() likha hai
 const app = express();
+
+//online database (mongodb) banane k liye
+//step1=>mongodb atlas(on browser) me register krke login kro
+//then new project create krke
+//then new cluster
+//then database ka name
+//then connectivity k liye DB me jo url hai use copy krna thaa.
+const DB =
+  "mongodb+srv://amankp12:Golukp12*@cluster0.1gmtdkm.mongodb.net/mernstack?retryWrites=true&w=majority";
+
+//monggose.connect(DB) => promise return karega isiliye .then use kr rhe
+// connection successfull na aaye toh
+//given code .connect(DB k baad comma lga kr likh dena)
+// , {
+//   useNewUrlParser: true,
+//   useCreateIndex: true,
+//   useUnifiedTopology: true,
+//   useFindAndModify: false,
+// }
+mongoose
+  .connect(DB)
+  .then(() => {
+    console.log("connection successfull");
+  })
+  .catch((err) => console.log("no connection"));
 
 //MIDDLEWARE
 
