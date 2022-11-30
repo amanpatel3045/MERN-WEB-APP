@@ -6,12 +6,12 @@ const { connection } = require("./db/conn.js");
 // require("./db/conn");
 //dotenv.config();
 const app = express();
-
+app.use(express.json());
 //post krne pe data json me aa rha tha but our application does not understand it
 //that's why undefined aa rha thaa
 //to overcome i am using express and saying to express jo bhi data json me aaye use
 //OBJECT me convert krdo and show kr do
-app.use(express.json());
+// app.use(express.json());
 
 //We link the router files to make our route easy
 app.use(require("./router/auth"));
@@ -44,10 +44,10 @@ const middleware = (req, res, next) => {
 };
 
 //bellow line home page ko represent karega
-// app.get("/", (req, res) => {
-//   //res.send me jo likha hai wo home page pe show hoga
-//   res.send(`Hello world from the server, you are on Home Page`);
-// });
+app.get("/", (req, res) => {
+  //res.send me jo likha hai wo home page pe show hoga
+  res.send(`Hello world from the server, you are on Home Page`);
+});
 
 //MIDDLEWARE=> user about page ko jb bhi access karega yaa about icon pe click karega toh
 //Middleare check karega ki user logged in hai ya nhi agr user already loggedin hai
@@ -58,7 +58,7 @@ const middleware = (req, res, next) => {
 //that's why yeh ek middle ki trh work kr rha hai
 
 //ALL PAGES =>HOME,ABOUT,CONTACT,SIGNIN,SIGNUP KO BACKEND KI HELP SE CREATE KRO...
-// now about page ke liye app.get likho
+// now about page ke liye app.get likho.
 app.get("/about", middleware, (req, res) => {
   console.log(`after executing middleware`);
   res.send(`You are on about page`);
