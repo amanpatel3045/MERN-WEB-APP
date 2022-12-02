@@ -1,5 +1,6 @@
+const jwt = require("jsonwebtoken");
 const mongoose = require('mongoose');
-
+const bcrypt = require('bcryptjs');
 //Document ka structure
 const userSchema = new mongoose.Schema({
     name: {
@@ -28,7 +29,17 @@ const userSchema = new mongoose.Schema({
     cpassword: {
         type:String,
         required:true
-    }
+    },
+    //for storing token into database after generating it
+    tokens: [
+        {
+            token: {
+                type:String,
+                required:true
+            }
+        }
+     
+    ]
 })
 
 //userSchema ko project ke sath attach krne k liye models use karenge
@@ -40,6 +51,37 @@ const userSchema = new mongoose.Schema({
 //mongoose.model me jo USER hai wo mere collection ka name hoga
 //collection bnne k baad Atlas me yeh plural ho jayega USER SE Users ho jayega
 //userSchema ko collection k sath connect kr liya
+
+
+
+
+
+//password n cpassword ko hash kr rhe hai bellow
+//save se phle pre wala middleware chalega
+//isiliye phle save likh hai
+//save=>auth.js me define hai for saving data into database
+userSchema.pre('save',async function(next){
+    console.log("hi from inside");
+    if(this.isModified('password')){
+        console.log("hi i am pre");
+        this.password = await bcrypt.hash(this.password,12);
+        this.cpassword = await bcrypt.hash(this.cpassword,12);
+    }
+    next();
+});
+//we are gennerating token
+ userSchema.methods.generateAuthToken = async function(){
+    try {
+        let GeneratedToken = jwt.sign({_id:this._id}, process.env.SECRET_KEY);
+        this.tokens = this.tokens.concat({token:GeneratedToken})
+        await this.save();
+        return GeneratedToken;
+    }catch(err){
+console.log(err);
+    }
+ }
+
+
 
 const User = mongoose.model('USER',userSchema);
 
