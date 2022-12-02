@@ -68,11 +68,13 @@ app.get("/about", middleware, (req, res) => {
 //res.get me jp likha hai wo dikhe
 
 app.get("/contact", (req, res) => {
+  res.cookie("Test",'aman');
   res.send(`You are on contact page`);
 });
 
 //now signin page ke liye
 app.get("/signin", (req, res) => {
+ 
   res.send(`You are on sign in page`);
 });
 
