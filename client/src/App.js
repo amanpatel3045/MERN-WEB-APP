@@ -1,5 +1,5 @@
 import React from "react";
-import { Route } from "react-router-dom";
+import { Route, Routes, Link } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Home from "./components/Home";
 import About from "./components/About";
@@ -11,25 +11,17 @@ const App = () => {
   return (
     <>
       <Navbar />
-      <Route path="/">
-        <Home />
-      </Route>
 
-      <Route path="/about">
-        <About />
-      </Route>
+      
+      
+      <Routes>
+        <Route exact path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
 
-      <Route path="contact">
-        <Contact />
-      </Route>
-
-      <Route path="login">
-        <Login />
-      </Route>
-
-      <Route path="signup">
-        <Signup />
-      </Route>
+        <Route path="/signup" element={<Signup />} />
+      </Routes>
     </>
   );
 };
