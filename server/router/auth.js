@@ -5,6 +5,7 @@ const express = require("express");
 
 const router = express.Router();
 const bcrypt = require('bcryptjs');
+const authenticate=require("../middleware/authenticate");
 
 require("../db/conn");
 const User = require("../model/userSchema");
@@ -120,6 +121,15 @@ res.cookie("jwtoken",token,{
   } catch (err) {
     console.log(err);
   }
+});
+
+
+//About Us ka Page
+//authenticate ki jgh kuchh bhi likh skte
+//about pe click krne pe authenticate me jayega jo ki middleware hai
+router.get("/about",authenticate, (req, res) => {
+  console.log(`after executing middleware`);
+  res.send(`You are on about page`);
 });
 
 module.exports = router;

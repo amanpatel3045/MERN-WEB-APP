@@ -37,17 +37,17 @@ const PORT = process.env.PORT;
 
 //MIDDLEWARE
 
-const middleware = (req, res, next) => {
+// const middleware = (req, res, next) => {
   // next parameter means=> middleware ka kaam ho jane k baad next jo bhi hai wo kaam shuru kr do
-  console.log(`I am Middleware`);
-  next();
-};
+//   console.log(`I am Middleware`);
+//   next();
+// };
 
 //bellow line home page ko represent karega
-app.get("/", (req, res) => {
-  //res.send me jo likha hai wo home page pe show hoga
-  res.send(`Hello world from the server, you are on Home Page`);
-});
+// app.get("/", (req, res) => {
+//   //res.send me jo likha hai wo home page pe show hoga
+//   res.send(`Hello world from the server, you are on Home Page`);
+// });
 
 //MIDDLEWARE=> user about page ko jb bhi access karega yaa about icon pe click karega toh
 //Middleare check karega ki user logged in hai ya nhi agr user already loggedin hai
@@ -59,10 +59,10 @@ app.get("/", (req, res) => {
 
 //ALL PAGES =>HOME,ABOUT,CONTACT,SIGNIN,SIGNUP KO BACKEND KI HELP SE CREATE KRO...
 // now about page ke liye app.get likho.
-app.get("/about", middleware, (req, res) => {
-  console.log(`after executing middleware`);
-  res.send(`You are on about page`);
-});
+// app.get("/about", middleware, (req, res) => {
+//   console.log(`after executing middleware`);
+//   res.send(`You are on about page`);
+// });
 
 //now contact page k liye app.get likho taaki user /contact pe jaye toh use mera
 //res.get me jp likha hai wo dikhe
