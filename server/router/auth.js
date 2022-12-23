@@ -127,9 +127,10 @@ res.cookie("jwtoken",token,{
 //About Us ka Page
 //authenticate ki jgh kuchh bhi likh skte
 //about pe click krne pe authenticate me jayega jo ki middleware hai
-router.get("/about",authenticate, (req, res) => {
+router.get('/about',authenticate, (req, res) => {
   console.log(`after executing middleware`);
-  res.send(`You are on about page`);
+
+  res.send(req.rootUser);
 });
 
 module.exports = router;
